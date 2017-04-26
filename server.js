@@ -39,7 +39,7 @@ app.get('/getDetails', cors(), function (req, res) {
 
 	//{'_id':'58e0e21af36d2878e036d74e'},
 	// console.log("id=" + req.param('id'))
-	Model.find({'_id':req.param('id')},function (err, result) {
+	Model.find({ '_id': req.param('id') }, function (err, result) {
 		if (err) throw err;
 		if (result) {
 			res.json(result)
@@ -54,18 +54,6 @@ app.get('/getDetails', cors(), function (req, res) {
 
 
 app.post('/save', cors(), function (req, res) {
-
-	//{'_id':'58e0e21af36d2878e036d74e'},
-	// console.log("n1="+req.param('address'))
-	// console.log("n1="+req.param('description'))
-	// console.log("n1="+req.param('category'))
-	// res.json({'status': 200, 'msg': 'success'});
-
-// var small = new Model({ name: req.param('name'), address: req.param('address'), description: req.param('description'), category: req.param('category') });
-// small.save(function (err) {
-//   if (err) return handleError(err);
-//   // saved!
-// })
 	Model.create({ name: req.param('name'), address: req.param('address'), description: req.param('description'), category: req.param('category') }, function (err, result) {
 		if (err) throw err;
 		if (result) {
@@ -76,6 +64,19 @@ app.post('/save', cors(), function (req, res) {
 			}))
 		}
 	})
+})
+
+app.delete('/deleteProduct', cors(), function (req, res) {
+	Model.remove({ _id: req.param('id') }, function (err, result) {
+		if (result) {
+			res.json(result)
+		}
+		else {
+			res.send(JSON.stringify({
+				error: 'Error'
+			}))
+		}
+	});
 })
 
 
